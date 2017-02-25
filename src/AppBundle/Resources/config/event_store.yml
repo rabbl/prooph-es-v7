@@ -1,0 +1,33 @@
+prooph_event_store:
+    stores:
+        main_store:
+            type: 'prooph_event_store.doctrine_adapter.mysql_event_store'
+            repositories:
+                todo_list:
+                    repository_class: 'AppBundle\Repository\TodoList'
+                    aggregate_type: 'Inowas\Modflow\Model\ModflowModelAggregate'
+                    aggregate_translator: 'prooph_event_sourcing.aggregate_translator'
+                    stream_name: 'event_stream_test'
+                    one_stream_per_aggregate: true
+
+services:
+    prooph_event_store.doctrine_adapter.mysql_event_store:
+        class: Prooph\EventStore\Pdo\MySqlEventStore
+        arguments:
+          - '@prooph_event_store.message_factory'
+          - '@event_store_pdo'
+          - '@prooph_event_store.mysql_aggregate_stream_strategy'
+          - 10000
+          - 'my_event_streams'
+          - 'my_projections'
+
+    prooph_event_sourcing.aggregate_translator:
+        class: Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator
+
+    prooph_event_store.mysql_aggregate_stream_strategy:
+          class: Prooph\EventStore\Pdo\PersistenceStrategy\MySqlAggregateStreamStrategy
+
+    event_store_pdo:
+        class: \PDO
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.dbal.default_connection', getWrappedConnection]

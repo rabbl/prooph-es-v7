@@ -35,11 +35,15 @@
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "^2.0",
         "twig/twig": "^1.0||^2.0",
-        "prooph/event-store-symfony-bundle": "dev-prooph_v7"
+        "prooph/event-store-symfony-bundle": "dev-prooph_v7",
+        "phpunit/phpunit": "^6.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
-        "symfony/phpunit-bridge": "^3.0"
+        "symfony/phpunit-bridge": "^3.0",
+        "prooph/event-sourcing": "dev-develop as 5.0.0",
+        "prooph/snapshot-store": "dev-master",
+        "prooph/pdo-event-store": "dev-master"
     },
     "scripts": {
         "symfony-scripts": [
