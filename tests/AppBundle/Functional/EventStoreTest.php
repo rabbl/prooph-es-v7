@@ -6,6 +6,7 @@ use AppBundle\Model\Event\TodoWasCreated;
 use AppBundle\Model\TodoId;
 use AppBundle\Model\UserId;
 use Prooph\EventStore\EventStore;
+use Prooph\EventStore\Stream;
 use Prooph\EventStore\StreamName;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -37,7 +38,9 @@ class EventStoreTest extends KernelTestCase
     {
         $userId = UserId::generate();
         $todoId = TodoId::generate();
-        $this->eventStore->appendTo(new StreamName('event_stream_test'), new \ArrayIterator([TodoWasCreated::byUser($userId, $todoId)]));
+        #$this->eventStore->create(new Stream(new StreamName('event_stream_test'), new \ArrayIterator([TodoWasCreated::byUser($userId, $todoId)])));
+        #$events = $this->eventStore->load(new StreamName('event_stream_test'));
+        $this->eventStore->delete(new StreamName('event_stream_test'));
+        dump($events);
     }
-
 }

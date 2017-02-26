@@ -22,7 +22,7 @@ class EventStoreCreateTableCommand extends ContainerAwareCommand
     {
         $connection = $this->getContainer()->get('event_store_pdo');
         $strategy = $this->getContainer()->get('prooph_event_store.mysql.aggregate_stream_strategy');
-        $schema = $strategy->createSchema($strategy->generateTableName(new StreamName('event_stream_test')));
+        $schema = $strategy->createSchema(new StreamName('event_stream_test'));
         foreach ($schema as $command) {
             $statement = $connection->prepare($command);
             $statement->execute();
