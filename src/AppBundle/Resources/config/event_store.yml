@@ -16,7 +16,7 @@ services:
         arguments:
           - '@prooph_event_store.message_factory'
           - '@event_store_pdo'
-          - '@prooph_event_store.mysql_aggregate_stream_strategy'
+          - '@prooph_event_store.mysql.aggregate_stream_strategy'
           - 10000
           - 'my_event_streams'
           - 'my_projections'
@@ -24,7 +24,7 @@ services:
     prooph_event_sourcing.aggregate_translator:
         class: Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator
 
-    prooph_event_store.mysql_aggregate_stream_strategy:
+    prooph_event_store.mysql.aggregate_stream_strategy:
           class: Prooph\EventStore\Pdo\PersistenceStrategy\MySqlAggregateStreamStrategy
 
     event_store_pdo:
